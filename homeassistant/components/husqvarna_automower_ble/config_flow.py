@@ -6,7 +6,6 @@ import logging
 from typing import Any
 
 from automower_ble.mower import Mower
-from bleak_retry_connector import get_device
 import voluptuous as vol
 
 from homeassistant.components import bluetooth
@@ -63,7 +62,11 @@ class HusqvarnaAutomowerBleConfigFlow(ConfigFlow, domain=DOMAIN):
 
         device = bluetooth.async_ble_device_from_address(
             self.hass, self.address, connectable=True
-        ) or await get_device(self.address)
+        )
+        if device is None:
+            raise AbortFlow(
+                "cannot_connect", description_placeholders={"error": "Device not found"}
+            )
         channel_id = 1523853253  # random.randint(1, 0xFFFFFFFF)
         mower = Mower(channel_id, self.address)
         try:
