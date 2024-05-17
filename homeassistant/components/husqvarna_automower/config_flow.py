@@ -52,11 +52,6 @@ class HusqvarnaConfigFlowHandler(
             data=data,
         )
 
-    @property
-    def logger(self) -> logging.Logger:
-        """Return logger."""
-        return logging.getLogger(__name__)
-
     async def async_step_reauth(
         self, entry_data: Mapping[str, Any]
     ) -> ConfigFlowResult:
