@@ -86,6 +86,7 @@ class HoneywellConfigFlow(ConfigFlow, domain=DOMAIN):
                 self.entry.data,
             ),
             errors=errors,
+            description_placeholders={"name": "Honeywell"},
         )
 
     async def async_step_user(self, user_input=None) -> ConfigFlowResult:
@@ -116,6 +117,7 @@ class HoneywellConfigFlow(ConfigFlow, domain=DOMAIN):
             step_id="user",
             data_schema=vol.Schema(data_schema),
             errors=errors,
+            description_placeholders={"name": "Honeywell"},
         )
 
     async def is_valid(self, **kwargs) -> bool:
